@@ -18,10 +18,10 @@ jobs:
         package-manager: [npm, yarn]
     steps:
       - uses: actions/checkout@v4
-      - uses: ./
+      - run: cd test
+      - uses: ../
         with:
           build: 'true'
           test: 'true'
           package_manager: ${{ matrix.package-manager }}
           node_version: ${{ matrix.node-version }}
-          working_directory: './test'
