@@ -23,13 +23,9 @@ inputs:
     required: false
     default: '.'
 
-
 runs:
   using: 'composite'
   steps:
-  - name: Set Working Directory
-    shell: bash
-    run: cd ${{ inputs.working_directory }}
   - name: Use Node.js ${{ inputs.node_version }}
     uses: actions/setup-node@v4
     with:
@@ -38,10 +34,10 @@ runs:
       cache-dependency-path: ${{ inputs.working_directory }}
   - name: npm install
     shell: bash
-    run: npm install
+    run: cd ${{ inputs.working_directory }} && npm install
   - name: npm build
     shell: bash
-    run: ${{ inputs.package_manager }} run build --if-present >> $GITHUB_STEP_SUMMARY
+    run: cd ${{ inputs.working_directory }} && ${{ inputs.package_manager }} run build --if-present >> $GITHUB_STEP_SUMMARY
   - name: npm test
     shell: bash
-    run: ${{ inputs.package_manager }} run test --if-present >> $GITHUB_STEP_SUMMARY
+    run: cd ${{ inputs.working_directory }} && ${{ inputs.package_manager }} run test --if-present >> $GITHUB_STEP_SUMMARY
