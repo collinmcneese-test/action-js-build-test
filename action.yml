@@ -18,10 +18,17 @@ inputs:
     description: 'The node version to validate'
     required: false
     default: 18.x
+  working_directory:
+    description: 'The working directory to use'
+    required: false
+    default: '.'
 
 runs:
   using: 'composite'
   steps:
+  - name: Set Working Directory
+    shell: bash
+    run: cd ${{ inputs.working_directory }}
   - name: Use Node.js ${{ inputs.node_version }}
     uses: actions/setup-node@v4
     with:
