@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - './action.yml'
+      - './test/**'
+
+jobs:
+  test-action:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+        package-manager: [npm, yarn]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./
+        with:
+          build: 'true'
+          test: 'true'
+          package_manager: ${{ matrix.package-manager }}
+          node_version: ${{ matrix.node-version }}

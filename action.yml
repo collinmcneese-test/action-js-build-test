@@ -1,0 +1,38 @@
+name: 🧪 Build and Test Code
+description: 'Build and test JavaScript projects'
+
+inputs:
+  build:
+    description: 'Whether to build the project'
+    required: false
+    default: 'true'
+  test:
+    description: 'Whether to test the project'
+    required: false
+    default: 'true'
+  package_manager:
+    description: 'The package manager to use'
+    required: false
+    default: 'npm'
+  node_version:
+    description: 'The node version to validate'
+    required: false
+    default: 18.x
+
+runs:
+  using: 'composite'
+  steps:
+  - name: Use Node.js ${{ inputs.node_version }}
+    uses: actions/setup-node@v4
+    with:
+      node-version: ${{ inputs.node_version }}
+      cache: ${{ inputs.package_manager }}
+  - name: npm install
+    shell: bash
+    run: npm install
+  - name: npm build
+    shell: bash
+    run: ${{ inputs.package_manager }} run build --if-present >> $GITHUB_STEP_SUMMARY
+  - name: npm test
+    shell: bash
+    run: ${{ inputs.package_manager }} run test --if-present >> $GITHUB_STEP_SUMMARY

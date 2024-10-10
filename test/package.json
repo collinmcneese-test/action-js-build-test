@@ -1,0 +1,17 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint",
+    "build": "esbuild index.js --bundle --platform=node --outfile=dist/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "eslint": "^9.12.0"
+  }
+}
