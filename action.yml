@@ -37,7 +37,7 @@ runs:
     run: cd ${{ inputs.working_directory }} && npm install
   - name: npm build
     shell: bash
-    run: cd ${{ inputs.working_directory }} && ${{ inputs.package_manager }} run build --if-present >> $GITHUB_STEP_SUMMARY
+    run: cd ${{ inputs.working_directory }} && ${{ inputs.package_manager }} run build >> $GITHUB_STEP_SUMMARY
   - name: npm test
     shell: bash
-    run: cd ${{ inputs.working_directory }} && ${{ inputs.package_manager }} run test --if-present >> $GITHUB_STEP_SUMMARY
+    run: cd ${{ inputs.working_directory }} && ${{ inputs.package_manager }} run test >> $GITHUB_STEP_SUMMARY
