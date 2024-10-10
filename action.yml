@@ -18,6 +18,10 @@ inputs:
     description: 'The node version to validate'
     required: false
     default: 18.x
+  working_directory:
+    description: 'The working directory to use'
+    required: false
+    default: './'
 
 runs:
   using: 'composite'
@@ -27,12 +31,16 @@ runs:
     with:
       node-version: ${{ inputs.node_version }}
       cache: ${{ inputs.package_manager }}
+    working-directory: ${{ inputs.working_directory }}
   - name: npm install
     shell: bash
     run: npm install
+    working-directory: ${{ inputs.working_directory }}
   - name: npm build
     shell: bash
     run: ${{ inputs.package_manager }} run build --if-present >> $GITHUB_STEP_SUMMARY
+    working-directory: ${{ inputs.working_directory }}
   - name: npm test
     shell: bash
     run: ${{ inputs.package_manager }} run test --if-present >> $GITHUB_STEP_SUMMARY
+    working-directory: ${{ inputs.working_directory }}
