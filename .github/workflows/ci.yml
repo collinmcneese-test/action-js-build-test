@@ -17,7 +17,7 @@ jobs:
         node-version: [18.x, 20.x]
         package-manager: [npm, yarn]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
       - uses: ./
         with:
           build: 'true'
